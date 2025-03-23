@@ -21,5 +21,6 @@
         {
             "url": "https://www.google.com/search?q=nasdaq+index"
         }
-    ]
+    ],
+    "interval": 10
 }
