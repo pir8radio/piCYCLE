@@ -16,6 +16,7 @@ let piosk = {
     $.each(data.urls, (index, item) => {
       piosk.appendUrl(item.url)
     })
+    $('#interval').val(data.interval); // Set the interval input value
   },
   showStatus (xhr) {
     let tmpErr = $('#template-err').contents().clone()
@@ -40,6 +41,7 @@ $(document).ready(() => {
   $('#execute').on('click', (e) => {
     let config = {}
     config.urls = []
+    config.interval = $('#interval').val() || 10 // Default to 10 seconds if not provided
     $('li.list-group-item').each((index, item) => {
       config.urls.push({ url: $(item).find('a').attr('href') })
     })
