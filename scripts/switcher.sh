@@ -4,12 +4,13 @@
 export XDG_RUNTIME_DIR=/run/user/1000
 
 # THIS IS NOT THE BEST WAY TO SWITCH & REFRESH TABS BUT IT WORKS
-# should parameterize cycle count & sleep delay with config.json
+# should parameterize cycle count with config.json
 
 # count the number of URLs, that are configured to cycle through
 URLS=$(jq -r '.urls | length' /opt/piosk/config.json)
+INTERVAL=$(jq -r '.interval' /opt/piosk/config.json)
 
-# swich tabs each 10s, refresh tabs each 10th cycle & then reset
+# switch tabs each INTERVAL seconds, refresh tabs each 10th cycle & then reset
 for ((TURN=1; TURN<=$((10*URLS)); TURN++)) do
   if [ $TURN -le $((10*URLS)) ]; then
     wtype -M ctrl -P Tab
@@ -20,5 +21,5 @@ for ((TURN=1; TURN<=$((10*URLS)); TURN++)) do
       fi
     fi
   fi
-  sleep 10
+  sleep $INTERVAL
 done
